@@ -11,27 +11,27 @@ Dockerized cluster architecture for OpenSearch with compose.
 
 ## Setup
 
-OpenSearch images use amazonlinux:2 as the base image. If you run Docker locally, set Docker to use at least 4 GB of RAM in Preferences > Resources.
+OpenSearch images use amazonlinux:2 as the base image. If you run Docker locally, set Docker to use at least 4 GB of RAM in *Preferences* > *Resources*.
 
-Generate the certificates for the cluster :
+Generate the certificates for the cluster:
 
 ```bash
 bash generate-certs.sh
 ```
 
-Build and start the cluster :
+Build and start the cluster:
 
 ```bash
 docker-compose up --build -d
 ```
 
-Initialize the security plugin :
+Initialize the security plugin:
 
 ```bash
 bash init-security.sh
 ```
 
-Test the connecion :
+Test the connecion:
 
 ```bash
 curl -XGET --insecure https://localhost:9200 -u admin:dashboard
@@ -43,22 +43,23 @@ Access OpenSearch Dashboards via [https://localhost:5601](https://localhost:5601
 
 Default username is `admin` and password is `dashboard`
 
-Import demo data :
+`internal_users.yml` contains initial users added to the security plugin’s internal user database. To generate a new password, run:
 
 ```bash
-# TODO: what to do
+docker-compose exec opensearch-node1 bash -c "plugins/opensearch-security/tools/hash.sh -p new_password"
 ```
 
+After adding or replacing passwords in `internal_users.yml` , re-run `init-security.sh` to apply the new passwords.
 
 ## Debug
 
-Bash access to container :
+Bash access to container:
 
 ```bash
 docker exec -it opensearch-node1 /bin/bash
 ```
 
-To output audit logs to stdout, edit `opensearch.yml` and add the following option :
+To output audit logs to stdout, edit `opensearch.yml` and add the following option:
 
 ```bash
 plugins.security.audit.type: debug
