@@ -1,6 +1,6 @@
 # OpenSearch docker
 
-![OpenSearch version](https://img.shields.io/badge/OpenSearch%20version-1.1.0-blue)
+![OpenSearch version](https://img.shields.io/badge/OpenSearch%20version-1.3.0-blue)
 
 Dockerized cluster architecture for OpenSearch with compose.
 
@@ -31,7 +31,7 @@ Initialize the security plugin:
 bash init-security.sh
 ```
 
-Test the connecion:
+Test the connection:
 
 ```bash
 curl -XGET --insecure https://localhost:9200 -u admin:dashboard
@@ -39,7 +39,7 @@ curl -XGET --insecure https://localhost:9200 -u admin:dashboard
 
 ## Usage
 
-Access OpenSearch Dashboards via [https://localhost:5601](https://localhost:5601)
+Access OpenSearch Dashboards via [http://localhost:5601](http://localhost:5601)
 
 Default username is `admin` and password is `dashboard`
 
@@ -61,7 +61,7 @@ docker exec -it opensearch-node1 /bin/bash
 
 To output audit logs to stdout, edit `opensearch.yml` and add the following option:
 
-```bash
+```
 plugins.security.audit.type: debug
 ```
 
